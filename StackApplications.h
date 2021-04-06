@@ -75,7 +75,6 @@ void infixToPostfix(char infix[], char result[]) {
     while (s.sp != -1) {
         pop(&s, &item);
         postfix[counter++] = item;
-        //        printf("%c", item);
         postfix[counter + 1] = '\0';
 
     }

@@ -36,7 +36,6 @@ void infixToPostfix(char infix[], char result[]) {
 
         if (isNumber(infix[i])) {
             postfix[counter++] = infix[i];
-            //            printf("%d", infix[i]);
         }
         else if (infix[i] == '(') {
             push(&s, infix[i]);
@@ -46,7 +45,6 @@ void infixToPostfix(char infix[], char result[]) {
             peek(s, &top);
             while (top != '(') {
                 pop(&s, &top);
-                //                printf("%c",top);
                 postfix[counter++] = top;
                 peek(s, &top);
             }
@@ -76,14 +74,12 @@ void infixToPostfix(char infix[], char result[]) {
     while (s.sp != -1) {
         pop(&s, &item);
         postfix[counter++] = item;
-        //        printf("%c", item);
         postfix[counter + 1] = '\0';
 
     }
 
     strcpy(result, postfix);
 
-    //    printf("%s", postfix);
 }
 
 
@@ -107,7 +103,6 @@ bool isBalanced(const char* exp){
         // if opening bracket found push to stack
         if(exp[i] == '(' || exp[i] == '[' || exp[i] == '{' || exp[i] == '<'){
             push(&s, exp[i]);
-//            printf("%c\n", exp[i]);
         }
 
 
@@ -122,7 +117,6 @@ bool isBalanced(const char* exp){
             char popped;
             pop(&s, &popped);
 
-//            printf("%c     %c\n", exp[i], popped);
             if(!isMatching(popped, exp[i])){
                 return false;
             }
