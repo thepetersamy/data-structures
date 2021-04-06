@@ -82,12 +82,7 @@ int peek(Stack s, char* item){
 
 
 bool isStackEmpty(Stack s) {
-    if (s.sp == -1) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return s.sp == -1;
 }
 
 int getCurrentStackSize(Stack s) {
