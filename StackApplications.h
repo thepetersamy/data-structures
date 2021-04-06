@@ -77,8 +77,6 @@ void infixToPostfix(char infix[], char result[]) {
     }
 
     strcpy(result, postfix);
-
-
 }
 
 
@@ -91,6 +89,14 @@ bool isMatching(char c1, char c2){
 }
 
 
+bool isOpeningBracket(char c){
+    return c == '(' || c == '[' || c == '{' || c == '<';
+}
+
+bool isClosingBracket(char c){
+    return c == ')' || c == ']' || c == '}' || c == '>';
+}
+
 bool isBalanced(const char* exp){
 
     Stack s;
@@ -99,28 +105,20 @@ bool isBalanced(const char* exp){
 
     for(int i=0; i<strlen(exp); i++){
 
-        // if opening bracket found push to stack
-        if(exp[i] == '(' || exp[i] == '[' || exp[i] == '{' || exp[i] == '<'){
+        if(isOpeningBracket(exp[i])){
             push(&s, exp[i]);
         }
 
-
-        // if closing bracket found pop
-        if(exp[i] == ')' || exp[i] == ']' || exp[i] == '}' || exp[i] == '>'){
+        else if(isClosingBracket(exp[i])){
 
             // if nothing to pop then not balanced
-            if(isStackEmpty(s)){
+            if(isStackEmpty(s))
                 return false;
-            }
 
             char popped;
             pop(&s, &popped);
-
-            if(!isMatching(popped, exp[i])){
+            if(!isMatching(popped, exp[i]))
                 return false;
-            }
-
-
         }
     }
 
