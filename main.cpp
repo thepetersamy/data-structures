@@ -7,6 +7,11 @@
 
 int main(){
 
+    char exp[] = "1+2*(8-9)";
+    char res[100];
+    infixToPostfix(exp, res);
+//    printf("%s", res);
+
 
     return 0;
 }

@@ -6,6 +6,7 @@ bool isNumber(char c){
     return c >= '0' && c <= '9';
 }
 
+// remember to add ^ operator
 int priority(char op) {
 
     if (op == '*' || op == '/') {
@@ -19,6 +20,7 @@ int priority(char op) {
     }
     return 10;
 }
+
 
 void infixToPostfix(char infix[], char result[]) {
 
@@ -43,6 +45,7 @@ void infixToPostfix(char infix[], char result[]) {
             peek(s, &top);
             while (top != '(') {
                 pop(&s, &top);
+                //                printf("%c",top);
                 postfix[counter++] = top;
                 peek(s, &top);
             }
@@ -58,7 +61,7 @@ void infixToPostfix(char infix[], char result[]) {
                     char popped;
                     pop(&s, &popped);
                     postfix[counter++] = popped;
-
+                    //                printf("%c", popped);
                     peek(s, &op);
                 }
             }
@@ -72,14 +75,15 @@ void infixToPostfix(char infix[], char result[]) {
     while (s.sp != -1) {
         pop(&s, &item);
         postfix[counter++] = item;
+        //        printf("%c", item);
         postfix[counter + 1] = '\0';
 
     }
 
     strcpy(result, postfix);
+
+        printf("%s", postfix);
 }
-
-
 
 bool isMatching(char c1, char c2){
     return  (c1 == '(' && c2 == ')') ||
