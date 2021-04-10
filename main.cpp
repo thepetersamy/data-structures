@@ -2,8 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 #include "CharArrayStack.h"
-#include "StackApplications.h"
-
+//#include "StackApplications.h"
+#include "IntArrayQueue.h"
 
 int main(){
 

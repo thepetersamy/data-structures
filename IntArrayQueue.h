@@ -1,148 +1,85 @@
 #ifndef REPO_INTARRAYQUEUE_H
 #define REPO_INTARRAYQUEUE_H
 
+// create flag to check if init
+
+struct Queue{
+    int size;
+    int* arr;
+    int frontPointer;
+    int backPointer;
+
+    Queue(){
+        size = 0;
+        arr = NULL;
+        frontPointer = -1;
+        backPointer = -1;
+    }
+};
 
 
+bool init(Queue* q, int size){
 
+    q->arr = (int*)malloc(sizeof(int) * size);
+    q->size = size;
 
-bool isNumber(char c){
-    return c >= '0' && c <= '9';
+    if (q->arr == NULL)
+        return false;
+
+    return true;
 }
 
-int priority(char op) {
+int enqueue(Queue* q, int item) {
 
-    if (op == '*' || op == '/') {
-        return 3;
+    //check if init
+    if (q->arr == NULL)
+        return -1;
+
+    // check for overflow
+    if ((q->backPointer + 1) % q->size == q->frontPointer) {
+        return -2;
     }
-    else if (op == '+' || op == '-') {
-        return 2;
-    }
-    else if (op == '^') {
-        return 4;
-    }
-    return 10;
+
+    if (q->backPointer == -1)
+        q->frontPointer = q->backPointer = 0;
+    else
+        q->backPointer = (q->backPointer + 1) % q->size;
+
+    q->arr[q->backPointer] = item;
+
+    return 1;
 }
 
-void infixToPostfix(char infix[], char result[]) {
+int dequeue(Queue* q, int *item){
 
-    Stack s;
-    char postfix[100];
+    // check if init
+    if(q->arr == NULL)
+        return -1;
 
-    init(&s, strlen(infix));
-
-
-    int counter = 0;
-    for (int i = 0; i < strlen(infix); i++) {
-
-        if (isNumber(infix[i])) {
-            postfix[counter++] = infix[i];
-        }
-        else if (infix[i] == '(') {
-            push(&s, infix[i]);
-        }
-        else if (infix[i] == ')') {
-            char top;
-            peek(s, &top);
-            while (top != '(') {
-                pop(&s, &top);
-                postfix[counter++] = top;
-                peek(s, &top);
-            }
-            pop(&s, &top); //dispose the )
-        }
-
-        else {
-            char op;
-            if (peek(s, &op) >= 0)
-            {
-                while (priority(op) >= priority(infix[i])) {
-
-                    char popped;
-                    pop(&s, &popped);
-                    postfix[counter++] = popped;
-                    //                printf("%c", popped);
-                    peek(s, &op);
-                }
-            }
-            push(&s, infix[i]); //dont forget to push the actual operator
-
-        }
-        postfix[counter + 1] = '\0';
-    }
-    char item;
-
-    while (s.sp != -1) {
-        pop(&s, &item);
-        postfix[counter++] = item;
-        postfix[counter + 1] = '\0';
-
+    // check for underflow
+    if(q->frontPointer == -1){
+        return -2;
     }
 
-    strcpy(result, postfix);
+    *item = q->arr[q->frontPointer];
 
+    if(q->backPointer == q->frontPointer){
+        q->backPointer = q->backPointer -1;
+    }
+    else{
+        q->frontPointer = (q->frontPointer+1) % q->size;
+    }
+    return 1;
 }
 
-
-
-bool isMatching(char c1, char c2){
-    return  (c1 == '(' && c2 == ')') ||
-            (c1 == '{' && c2 == '}') ||
-            (c1 == '[' && c2 == ']') ||
-            (c1 == '<' && c2 == '>');
-}
-
-
-bool isBalanced(const char* exp){
-
-    Stack s;
-
-    init(&s, strlen(exp));
-
-    for(int i=0; i<strlen(exp); i++){
-
-        // if opening bracket found push to stack
-        if(exp[i] == '(' || exp[i] == '[' || exp[i] == '{' || exp[i] == '<'){
-            push(&s, exp[i]);
-        }
-
-
-        // if closing bracket found pop
-        if(exp[i] == ')' || exp[i] == ']' || exp[i] == '}' || exp[i] == '>'){
-
-            // if nothing to pop then not balanced
-            if(isStackEmpty(s)){
-                return false;
-            }
-
-            char popped;
-            pop(&s, &popped);
-
-            if(!isMatching(popped, exp[i])){
-                return false;
-            }
-
-
-        }
+bool isQueueEmpty(Queue q){
+    if (q.frontPointer == -1) {
+        return true;
     }
-
-    return s.sp == -1;
-
-}
-
-
-void reverseStingByStack(char* str){
-
-    Stack s;
-    init(&s, strlen(str));
-
-    for(int i=0; i<strlen(str); i++){
-        push(&s, str[i]);
-    }
-
-    int counter = 0;
-    while(!isStackEmpty(s)){
-        pop(&s, &str[counter++]);
+    else {
+        return false;
     }
 }
+
 
 #endif //REPO_INTARRAYQUEUE_H
