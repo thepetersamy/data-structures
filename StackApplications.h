@@ -22,6 +22,8 @@ int priority(char op) {
 }
 
 
+
+// ****NOT WORKING*****
 void infixToPostfix(char infix[], char result[]) {
 
     Stack s;
