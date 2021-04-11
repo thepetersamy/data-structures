@@ -49,7 +49,7 @@ int enqueue(Queue* q, int item) {
 
     return 1;
 }
-
+// *** BUG HERE DONT USE YET****
 int dequeue(Queue* q, int *item){
 
     // check if init
