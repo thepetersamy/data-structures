@@ -8,6 +8,6 @@
 #define N 10
 
 int main(){
-
+    printf("test");
     return 0;
 }
