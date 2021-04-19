@@ -49,7 +49,7 @@ int enqueue(Queue* q, int item) {
 
     return 1;
 }
-
+// *** BUG HERE DONT USE YET****
 int dequeue(Queue* q, int *item){
 
     // check if init
@@ -64,7 +64,7 @@ int dequeue(Queue* q, int *item){
     *item = q->arr[q->frontPointer];
 
     if(q->backPointer == q->frontPointer){
-        q->backPointer = q->backPointer -1;
+        q->backPointer = q->backPointer = -1;
     }
     else{
         q->frontPointer = (q->frontPointer+1) % q->size;
