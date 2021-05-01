@@ -24,67 +24,67 @@ int priority(char op) {
 
 
 // ****NOT WORKING*****
-void infixToPostfix(char infix[], char result[]) {
+// void infixToPostfix(char infix[], char result[]) {
 
-    Stack s;
-    char postfix[100];
+//     Stack s;
+//     char postfix[100];
 
-    init(&s, strlen(infix));
+//     init(&s, strlen(infix));
 
 
-    int counter = 0;
-    for (int i = 0; i < strlen(infix); i++) {
+//     int counter = 0;
+//     for (int i = 0; i < strlen(infix); i++) {
 
-        if (isNumber(infix[i])) {
-            postfix[counter++] = infix[i];
-            //            printf("%d", infix[i]);
-        }
-        else if (infix[i] == '(') {
-            push(&s, infix[i]);
-        }
-        else if (infix[i] == ')') {
-            char top;
-            peek(s, &top);
-            while (top != '(') {
-                pop(&s, &top);
-                //                printf("%c",top);
-                postfix[counter++] = top;
-                peek(s, &top);
-            }
-            pop(&s, &top); //dispose the )
-        }
+//         if (isNumber(infix[i])) {
+//             postfix[counter++] = infix[i];
+//             //            printf("%d", infix[i]);
+//         }
+//         else if (infix[i] == '(') {
+//             push(&s, infix[i]);
+//         }
+//         else if (infix[i] == ')') {
+//             char top;
+//             peek(s, &top);
+//             while (top != '(') {
+//                 pop(&s, &top);
+//                 //                printf("%c",top);
+//                 postfix[counter++] = top;
+//                 peek(s, &top);
+//             }
+//             pop(&s, &top); //dispose the )
+//         }
 
-        else {
-            char op;
-            if (peek(s, &op) >= 0)
-            {
-                while (priority(op) >= priority(infix[i])) {
+//         else {
+//             char op;
+//             if (peek(s, &op) >= 0)
+//             {
+//                 while (priority(op) >= priority(infix[i])) {
 
-                    char popped;
-                    pop(&s, &popped);
-                    postfix[counter++] = popped;
-                    //                printf("%c", popped);
-                    peek(s, &op);
-                }
-            }
-            push(&s, infix[i]); //dont forget to push the actual operator
+//                     char popped;
+//                     pop(&s, &popped);
+//                     postfix[counter++] = popped;
+//                     //                printf("%c", popped);
+//                     peek(s, &op);
+//                 }
+//             }
+//             push(&s, infix[i]); //dont forget to push the actual operator
 
-        }
-        postfix[counter + 1] = '\0';
-    }
-    char item;
+//         }
+//         postfix[counter + 1] = '\0';
+//     }
+//     char item;
 
-    while (s.sp != -1) {
-        pop(&s, &item);
-        postfix[counter++] = item;
-        postfix[counter + 1] = '\0';
+//     while (s.sp != -1) {
+//         pop(&s, &item);
+//         postfix[counter++] = item;
+//         postfix[counter + 1] = '\0';
 
-    }
+//     }
 
-    strcpy(result, postfix);
+//     strcpy(result, postfix);
 
-        printf("%s", postfix);
-}
+//         printf("%s", postfix);
+// }
 
 bool isMatching(char c1, char c2){
     return  (c1 == '(' && c2 == ')') ||
